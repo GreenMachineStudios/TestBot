@@ -24,7 +24,6 @@ public class SimpleMecanumDriveSubsystem extends SubsystemBase {
     public DcMotor rightRearDrive;
     final IMU imu;
     boolean fieldcentric = true;
-    boolean slowMode = false;
     double headingOffset = 0.0;
 
     public SimpleMecanumDriveSubsystem(HardwareMap hardwareMap) {
@@ -33,9 +32,9 @@ public class SimpleMecanumDriveSubsystem extends SubsystemBase {
         rightFrontDrive = hardwareMap.get(DcMotor.class, "rightFrontDrive");
         rightRearDrive = hardwareMap.get(DcMotor.class, "rightRearDrive");
 
-        leftFrontDrive.setDirection(DcMotor.Direction.FORWARD);
+        leftFrontDrive.setDirection(DcMotor.Direction.REVERSE);
         leftRearDrive.setDirection(DcMotor.Direction.REVERSE);
-        rightFrontDrive.setDirection(DcMotor.Direction.REVERSE);
+        rightFrontDrive.setDirection(DcMotor.Direction.FORWARD);
         rightRearDrive.setDirection(DcMotor.Direction.FORWARD);
         leftFrontDrive.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         leftRearDrive.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
@@ -49,8 +48,8 @@ public class SimpleMecanumDriveSubsystem extends SubsystemBase {
         imu = hardwareMap.get(IMU.class, "imu");
         IMU.Parameters parameters = new IMU.Parameters(
                 new RevHubOrientationOnRobot(
-                        RevHubOrientationOnRobot.LogoFacingDirection.FORWARD,
-                        RevHubOrientationOnRobot.UsbFacingDirection.RIGHT
+                        RevHubOrientationOnRobot.LogoFacingDirection.UP,
+                        RevHubOrientationOnRobot.UsbFacingDirection.BACKWARD
                 )
         );
 
@@ -119,13 +118,6 @@ public class SimpleMecanumDriveSubsystem extends SubsystemBase {
         double leftRearDrivePower = (y - x + rotation) / denominator;
         double rightFrontDrivePower = (y - x - rotation) / denominator;
         double rightRearDrivePower = (y + x - rotation) / denominator;
-
-        if(slowMode){
-            leftFrontDrivePower *= 0.5;
-            leftRearDrivePower *= 0.5;
-            rightFrontDrivePower *= 0.5;
-            rightRearDrivePower *= 0.5;
-        }
 
         leftFrontDrive.setPower(leftFrontDrivePower);
         leftRearDrive.setPower(leftRearDrivePower);
