@@ -32,6 +32,7 @@ public class AprilTagSubsystem extends SubsystemBase {
                 .addProcessor(tagProcessor)
                 .setCamera(hardwareMap.get(WebcamName.class, "Webcam 1"))
                 .setCameraResolution(new Size(640, 480))
+                .setStreamFormat(VisionPortal.StreamFormat.MJPEG)
                 .build();
     }
 

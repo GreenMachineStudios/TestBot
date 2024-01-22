@@ -4,6 +4,15 @@ import com.arcrobotics.ftclib.command.CommandBase;
 
 public class AlignWithAprilTag extends CommandBase {
 
-    final double distance = 12.0;
+    double distance = 12.0;
+    double heading = 0.0;
 
+    public AlignWithAprilTag(double heading) {
+        this.heading = heading;
+    }
+
+    @Override
+    public void initialize() {
+
+    }
 }
