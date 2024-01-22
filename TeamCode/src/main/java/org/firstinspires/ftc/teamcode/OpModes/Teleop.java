@@ -7,6 +7,7 @@ import com.arcrobotics.ftclib.gamepad.GamepadEx;
 import com.arcrobotics.ftclib.gamepad.GamepadKeys;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
+import org.firstinspires.ftc.teamcode.Commands.AlignWithAprilTag;
 import org.firstinspires.ftc.teamcode.Commands.DefaultMecanumDriveCommand;
 import org.firstinspires.ftc.teamcode.Subsystems.AprilTagSubsystem;
 import org.firstinspires.ftc.teamcode.Subsystems.CameraSubsystem;
@@ -46,6 +47,8 @@ public abstract class Teleop extends StealthOpMode {
         );
         driveGamepad.getGamepadButton(GamepadKeys.Button.Y).whenPressed(new InstantCommand(() -> drive.resetHeading()));
         driveGamepad.getGamepadButton(GamepadKeys.Button.X).whenPressed(new InstantCommand(() -> drive.toggleSlowMode()));
+
+        driveGamepad.getGamepadButton(GamepadKeys.Button.A).whenPressed(new InstantCommand(() -> new AlignWithAprilTag(drive, aprilTag)));
 
     }
 

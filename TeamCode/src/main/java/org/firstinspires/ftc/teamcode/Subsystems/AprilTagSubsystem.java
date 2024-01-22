@@ -1,7 +1,5 @@
 package org.firstinspires.ftc.teamcode.Subsystems;
 
-import static org.stealthrobotics.library.opmodes.StealthOpMode.telemetry;
-
 import android.util.Size;
 
 import com.arcrobotics.ftclib.command.SubsystemBase;
@@ -12,13 +10,13 @@ import org.firstinspires.ftc.vision.VisionPortal;
 import org.firstinspires.ftc.vision.apriltag.AprilTagDetection;
 import org.firstinspires.ftc.vision.apriltag.AprilTagProcessor;
 
+import java.util.ArrayList;
+
 public class AprilTagSubsystem extends SubsystemBase {
 
     private final AprilTagProcessor tagProcessor;
 
     private final VisionPortal visionPortal;
-
-    double heading = 0;
 
     public AprilTagSubsystem(HardwareMap hardwareMap) {
 
@@ -36,29 +34,12 @@ public class AprilTagSubsystem extends SubsystemBase {
                 .build();
     }
 
-    public void getHeadingAprilTags(){
-        if(tagProcessor.getDetections() != null) {
-            if (tagProcessor.getDetections().size() > 0) {
-                for(int i = 0; i < tagProcessor.getDetections().size(); i++){
-                    //the tag which the processer will process is currently: 3
-                    if(tagProcessor.getDetections().get(i).id == 3){
-                        heading = tagProcessor.getDetections().get(i).ftcPose.bearing;
-                    }
-                }
-
-            }
-            else{
-                heading = 0;
-            }
-        }
-
+    public ArrayList<AprilTagDetection> getDetections(){
+        return tagProcessor.getDetections();
     }
 
     @Override
     public void periodic() {
-        getHeadingAprilTags();
-
-        telemetry.addData("heading: ", heading);
     }
 
 }
