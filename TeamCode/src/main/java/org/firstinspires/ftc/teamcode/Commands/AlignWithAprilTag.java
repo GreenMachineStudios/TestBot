@@ -1,5 +1,7 @@
 package org.firstinspires.ftc.teamcode.Commands;
 
+import static org.stealthrobotics.library.opmodes.StealthOpMode.telemetry;
+
 import com.arcrobotics.ftclib.command.CommandBase;
 import com.qualcomm.robotcore.util.Range;
 
@@ -68,6 +70,11 @@ public class AlignWithAprilTag extends CommandBase {
         strafe = Range.clip(-yawError * STRAFE_GAIN, -MAX_AUTO_STRAFE, MAX_AUTO_STRAFE);
 
         driveSubsystem.drive(drive, strafe, turn);
+
+        telemetry.addData("rError", rangeError);
+        telemetry.addData("hError", headingError);
+        telemetry.addData("yError", yawError);
+        telemetry.update();
     }
 
     @Override
