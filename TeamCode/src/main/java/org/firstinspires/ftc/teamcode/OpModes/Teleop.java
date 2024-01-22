@@ -48,8 +48,7 @@ public abstract class Teleop extends StealthOpMode {
         driveGamepad.getGamepadButton(GamepadKeys.Button.Y).whenPressed(new InstantCommand(() -> drive.resetHeading()));
         driveGamepad.getGamepadButton(GamepadKeys.Button.X).whenPressed(new InstantCommand(() -> drive.toggleSlowMode()));
 
-        driveGamepad.getGamepadButton(GamepadKeys.Button.A).whenPressed(new InstantCommand(() -> new AlignWithAprilTag(drive, aprilTag)));
-
+        driveGamepad.getGamepadButton(GamepadKeys.Button.A).whenPressed(new AlignWithAprilTag(drive, aprilTag));
     }
 
     @SuppressWarnings("unused")

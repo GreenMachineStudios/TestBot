@@ -35,7 +35,11 @@ public class AprilTagSubsystem extends SubsystemBase {
     }
 
     public ArrayList<AprilTagDetection> getDetections(){
-        return tagProcessor.getDetections();
+        if(tagProcessor.getDetections() != null) {
+            return tagProcessor.getDetections();
+        }
+
+        return null;
     }
 
     @Override
