@@ -82,7 +82,7 @@ public class AlignWithAprilTag extends CommandBase {
         turn   = Range.clip(headingError * TURN_GAIN, -MAX_AUTO_TURN, MAX_AUTO_TURN) ;
         strafe = Range.clip(-yawError * STRAFE_GAIN, -MAX_AUTO_STRAFE, MAX_AUTO_STRAFE);
 
-        driveSubsystem.drive(-drive, -strafe, -turn);
+        driveSubsystem.drive(drive, strafe, turn);
 
         telemetry.addData("rError", rangeError);
         telemetry.addData("hError", headingError);
