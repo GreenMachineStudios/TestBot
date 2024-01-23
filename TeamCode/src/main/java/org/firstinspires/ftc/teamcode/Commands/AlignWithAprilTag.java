@@ -70,6 +70,7 @@ public class AlignWithAprilTag extends CommandBase {
             }
         }
 
+        assert desiredTag != null;
         rangeError = (desiredTag.ftcPose.range - DESIRED_DISTANCE);
         headingError = desiredTag.ftcPose.bearing;
         yawError = desiredTag.ftcPose.yaw;
