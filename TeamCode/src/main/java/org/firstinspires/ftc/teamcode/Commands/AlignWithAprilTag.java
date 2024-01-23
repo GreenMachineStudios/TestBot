@@ -16,7 +16,13 @@ public class AlignWithAprilTag extends CommandBase {
 
     final AprilTagSubsystem aprilTag;
 
-    final double DESIRED_DISTANCE = 4.0;
+    private boolean noDetections;
+
+    final double DESIRED_DISTANCE = 8.0;
+
+    final double rangeTolerance = 0.5;
+    final double headingTolerance = 0.5;
+    final double yawTolerance = 0.5;
 
     final double SPEED_GAIN = 0.02  ;
     final double STRAFE_GAIN = 0.015 ;
@@ -27,7 +33,6 @@ public class AlignWithAprilTag extends CommandBase {
     final double MAX_AUTO_TURN = 0.3;
 
     private static final int DESIRED_TAG_ID = 3;
-    private AprilTagDetection desiredTag = null;
 
     private double rangeError;
     private double headingError;
@@ -40,8 +45,14 @@ public class AlignWithAprilTag extends CommandBase {
     }
 
     @Override
+    public void initialize() {
+        noDetections = false;
+    }
+
+    @Override
     public void execute() {
 
+        AprilTagDetection desiredTag = null;
         List<AprilTagDetection> currentDetections = aprilTag.getDetections();
         for (AprilTagDetection detection : currentDetections) {
 
@@ -54,7 +65,9 @@ public class AlignWithAprilTag extends CommandBase {
 
                 }
             }
-            isFinished();
+            else {
+                noDetections = true;
+            }
         }
 
         rangeError = (desiredTag.ftcPose.range - DESIRED_DISTANCE);
@@ -84,6 +97,6 @@ public class AlignWithAprilTag extends CommandBase {
 
     @Override
     public boolean isFinished() {
-        return rangeError == 0 && headingError == 0 && yawError == 0;
+        return noDetections || (Math.abs(rangeError) < rangeTolerance) && (Math.abs(headingError) < headingTolerance) && (Math.abs(yawError) < yawTolerance);
     }
 }
