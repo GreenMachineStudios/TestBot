@@ -65,30 +65,31 @@ public class AlignWithAprilTag extends CommandBase {
 
                 }
             }
-            else {
-                noDetections = true;
-            }
         }
 
-        assert desiredTag != null;
-        rangeError = (desiredTag.ftcPose.range - DESIRED_DISTANCE);
-        headingError = desiredTag.ftcPose.bearing;
-        yawError = desiredTag.ftcPose.yaw;
+        if (desiredTag == null) {
+            noDetections = true;
+        }
+        else {
+            rangeError = (desiredTag.ftcPose.range - DESIRED_DISTANCE);
+            headingError = desiredTag.ftcPose.bearing;
+            yawError = desiredTag.ftcPose.yaw;
 
-        double  drive = 0;
-        double  strafe = 0;
-        double  turn = 0;
+            double  drive = 0;
+            double  strafe = 0;
+            double  turn = 0;
 
-        drive  = Range.clip(rangeError * SPEED_GAIN, -MAX_AUTO_SPEED, MAX_AUTO_SPEED);
-        turn   = Range.clip(headingError * TURN_GAIN, -MAX_AUTO_TURN, MAX_AUTO_TURN) ;
-        strafe = Range.clip(-yawError * STRAFE_GAIN, -MAX_AUTO_STRAFE, MAX_AUTO_STRAFE);
+            drive  = Range.clip(rangeError * SPEED_GAIN, -MAX_AUTO_SPEED, MAX_AUTO_SPEED);
+            turn   = Range.clip(headingError * TURN_GAIN, -MAX_AUTO_TURN, MAX_AUTO_TURN) ;
+            strafe = Range.clip(-yawError * STRAFE_GAIN, -MAX_AUTO_STRAFE, MAX_AUTO_STRAFE);
 
-        driveSubsystem.drive(drive, strafe, turn);
+            driveSubsystem.drive(drive, strafe, turn);
 
-        telemetry.addData("rError", rangeError);
-        telemetry.addData("hError", headingError);
-        telemetry.addData("yError", yawError);
-        telemetry.update();
+            telemetry.addData("rError", rangeError);
+            telemetry.addData("hError", headingError);
+            telemetry.addData("yError", yawError);
+            telemetry.update();
+        }
     }
 
     @Override
