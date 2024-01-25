@@ -11,6 +11,7 @@ import org.firstinspires.ftc.teamcode.Commands.AlignWithAprilTag;
 import org.firstinspires.ftc.teamcode.Commands.DefaultMecanumDriveCommand;
 import org.firstinspires.ftc.teamcode.Subsystems.AprilTagSubsystem;
 import org.firstinspires.ftc.teamcode.Subsystems.CameraSubsystem;
+import org.firstinspires.ftc.teamcode.Subsystems.ClawSubsystem;
 import org.firstinspires.ftc.teamcode.Subsystems.SimpleMecanumDriveSubsystem;
 import org.stealthrobotics.library.opmodes.StealthOpMode;
 
@@ -21,6 +22,8 @@ public abstract class Teleop extends StealthOpMode {
 
     AprilTagSubsystem aprilTag;
 
+    ClawSubsystem claw;
+
     CameraSubsystem camera;
 
     // Game controllers
@@ -30,10 +33,10 @@ public abstract class Teleop extends StealthOpMode {
     public void initialize() {
         // Setup and register all of your subsystems here
         drive = new SimpleMecanumDriveSubsystem(hardwareMap);
-
+        claw = new ClawSubsystem(hardwareMap);
         aprilTag = new AprilTagSubsystem(hardwareMap);
 
-        register(drive, aprilTag);
+        register(drive, aprilTag, claw);
         driveGamepad = new GamepadEx(gamepad1);
 
         // A subsystem's default command runs all the time. Great for drivetrains and such.
@@ -49,6 +52,10 @@ public abstract class Teleop extends StealthOpMode {
         driveGamepad.getGamepadButton(GamepadKeys.Button.X).whenPressed(new InstantCommand(() -> drive.toggleSlowMode()));
 
         driveGamepad.getGamepadButton(GamepadKeys.Button.A).whenPressed(new AlignWithAprilTag(drive, aprilTag));
+
+        driveGamepad.getGamepadButton(GamepadKeys.Button.LEFT_BUMPER).whenPressed(new InstantCommand(() -> claw.toggleLeft()));
+        driveGamepad.getGamepadButton(GamepadKeys.Button.RIGHT_BUMPER).whenPressed(new InstantCommand(() -> claw.toggleRight()));
+
     }
 
     @SuppressWarnings("unused")
@@ -65,5 +72,7 @@ public abstract class Teleop extends StealthOpMode {
     public double getFinalHeading() {
         return drive.getHeading();
     }
+
+
 
 }
