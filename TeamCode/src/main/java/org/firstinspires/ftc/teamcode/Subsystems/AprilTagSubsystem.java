@@ -1,5 +1,7 @@
 package org.firstinspires.ftc.teamcode.Subsystems;
 
+import static org.stealthrobotics.library.opmodes.StealthOpMode.telemetry;
+
 import android.util.Size;
 
 import com.acmerobotics.dashboard.config.Config;

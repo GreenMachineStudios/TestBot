@@ -18,11 +18,11 @@ public class AlignWithAprilTag extends CommandBase {
 
     private boolean noDetections;
 
-    final double DESIRED_DISTANCE = 8.0;
+    final double DESIRED_DISTANCE = 2.0;
 
-    final double rangeTolerance = 0.5;
-    final double headingTolerance = 0.5;
-    final double yawTolerance = 0.5;
+    final double rangeTolerance = 0.8;
+    final double headingTolerance = 0.8;
+    final double yawTolerance = 0.8;
 
     final double SPEED_GAIN = 0.02  ;
     final double STRAFE_GAIN = 0.015 ;
@@ -32,7 +32,7 @@ public class AlignWithAprilTag extends CommandBase {
     final double MAX_AUTO_STRAFE = 0.5;
     final double MAX_AUTO_TURN = 0.3;
 
-    private static final int DESIRED_TAG_ID = 3;
+    private static final int DESIRED_TAG_ID = 583; //Change for desired tag ID
 
     private double rangeError;
     private double headingError;
@@ -88,7 +88,6 @@ public class AlignWithAprilTag extends CommandBase {
             telemetry.addData("rError", rangeError);
             telemetry.addData("hError", headingError);
             telemetry.addData("yError", yawError);
-            telemetry.update();
         }
     }
 
@@ -100,5 +99,9 @@ public class AlignWithAprilTag extends CommandBase {
     @Override
     public boolean isFinished() {
         return noDetections || (Math.abs(rangeError) < rangeTolerance) && (Math.abs(headingError) < headingTolerance) && (Math.abs(yawError) < yawTolerance);
+    }
+
+    public void periodic() {
+        telemetry.update();
     }
 }
