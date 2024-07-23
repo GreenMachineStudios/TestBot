@@ -11,11 +11,11 @@ public class ClawSubsystem extends SubsystemBase {
     private final Servo leftServo;
     private final Servo rightServo;
 
-    public static double LEFT_OPEN_POSITION = 0.63;
-    public static double LEFT_CLOSE_POSITION = 0.33;
+    private final double LEFT_OPEN_POSITION = 0.63;
+    private final double LEFT_CLOSE_POSITION = 0.33;
 
-    public static double RIGHT_OPEN_POSITION = 0;
-    public static double RIGHT_CLOSE_POSITION = 0.41;
+    private final double RIGHT_OPEN_POSITION = 0;
+    private final double RIGHT_CLOSE_POSITION = 0.41;
 
     private boolean leftOpen = true;
     private boolean rightOpen = true;
@@ -48,7 +48,8 @@ public class ClawSubsystem extends SubsystemBase {
     public void toggleLeft() {
         if (leftOpen) {
             closeLeft();
-        }else{
+        }
+        else {
             openLeft();
         }
     }
@@ -56,7 +57,8 @@ public class ClawSubsystem extends SubsystemBase {
     public void toggleRight() {
         if (rightOpen) {
             closeRight();
-        }else{
+        }
+        else {
             openRight();
         }
     }

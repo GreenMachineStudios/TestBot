@@ -72,7 +72,4 @@ public abstract class Teleop extends StealthOpMode {
     public double getFinalHeading() {
         return drive.getHeading();
     }
-
-
-
 }
